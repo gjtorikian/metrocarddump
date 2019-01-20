@@ -1,16 +1,15 @@
 builds:
-- env:
-  - CGO_ENABLED=0
-- goos:
-  - freebsd
-  - windows
-  - darwin
-  - linux
+-
+  env:
+    - CGO_ENABLED=0
+  goos:
+    - freebsd
+    - windows
+    - darwin
+    - linux
 archive:
   replacements:
-    darwin: Darwin
-    linux: Linux
-    windows: Windows
+    darwin: macOS
     386: i386
     amd64: x86_64
 checksum:
