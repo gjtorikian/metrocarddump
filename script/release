@@ -10,6 +10,7 @@ version="$(go run metrocarddump.go --version | grep 'metrocarddump version ' | a
 [ -n "$version" ] || exit 1
 
 echo $version
+git add .
 git commit --allow-empty -a -m "Release $version"
 git tag "v$version"
 git push origin

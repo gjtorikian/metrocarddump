@@ -1,6 +1,7 @@
 builds:
 - env:
   - CGO_ENABLED=0
+  - GOOS=windows
 archive:
   replacements:
     darwin: Darwin

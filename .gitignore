@@ -1,5 +1,5 @@
 .gopack
-build/
+dist/
 tmp
 log
 .env
