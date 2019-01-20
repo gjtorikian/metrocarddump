@@ -9,7 +9,6 @@ go fmt
 version="$(go run metrocarddump.go --version | grep 'metrocarddump version ' | awk '{print $3}')"
 [ -n "$version" ] || exit 1
 
-echo $version
 git add .
 git commit --allow-empty -a -m "Release $version"
 git tag "v$version"

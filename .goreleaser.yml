@@ -1,7 +1,11 @@
 builds:
 - env:
   - CGO_ENABLED=0
-  - GOOS=windows
+goos:
+  - freebsd
+  - windows
+  - darwin
+  - linux
 archive:
   replacements:
     darwin: Darwin
