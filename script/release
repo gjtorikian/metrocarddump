@@ -15,4 +15,6 @@ git commit --allow-empty -a -m "Release $version"
 git tag "v$version"
 git push origin
 git push origin "v$version"
+
+rm -rf dist/
 goreleaser
