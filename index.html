@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MetroCardDump</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+        width: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body class="w-100 sans-serif bg-yellow black-70">
+    <section class="cf ph3 ph5-ns">
+      <article class="pv2 fl w-100 ">
+        <h1 class="f4 f1-ns fw6 mb2">MetroCardDump</h1>
+        <p class="f5 f4-ns measure lh-copy mt0">
+          Citizen of New York! Got an EasyPay Metrocard? Bully for you! Now you can get a JSON dump of all the rides you've taken. <a href="https://github.com/gjtorikian/metrocarddump" class="black dim">Get it here</a>!
+        </p>
+      </article>
+      <article class="pv2 fl w-100 w-50-l pr0 pr2-l">
+        <h2 class="f4 f3-ns fw6 mb2 ttu tracked">Why would I want to do that?</h2>
+        <p class="f4 measure lh-copy mt0">
+            Um, the words <span class="courier red">data visualization</span> mean anything to you?!
+        </p>
+      </article>
+    </section>
+    <section id="map" class="cf ph3 ph5-ns"></section>
+    <section class="cf ph3 ph5-ns pb2">
+      <article class="pv2 fl w-100 w-50-l pr0 pr2-l">
+        <h2 class="f4 f3-ns fw6 mb2 ttu tracked">Those words mean nothing to me.</h2>
+        <p class="f4 measure lh-copy mt0">
+          Then yes, this might not be for you. I'm sorry.
+        </p>
+      </article>
+    </section>
+
+    <script>
+      var map, heatmap;
+
+      function initMap() {
+        loadJSON(function(response) {
+          ridesJSON = JSON.parse(response);
+
+          map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: {lat: 40.730610, lng: -73.9795},
+            mapTypeId: 'satellite',
+            draggable: false,
+            zoomControl: false,
+            scrollwheel: false,
+            disableDoubleClickZoom: true,
+            navigationControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            fullscreenControl: false
+          });
+
+          heatmap = new google.maps.visualization.HeatmapLayer({
+            data: getPoints(ridesJSON),
+            map: map
+          });
+        });
+      }
+
+      // Heatmap data: 500 Points
+      function getPoints(ridesJSON) {
+        return ridesJSON.map(r => new google.maps.LatLng(r.latitude, r.longitude));
+      }
+
+      function loadJSON(callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open("GET", "rides.json", true);
+        xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+        };
+        xobj.send(null);
+      }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6xPqTamaRPzUFJv7PTNp-DzQNkSjn-Lg&libraries=visualization&callback=initMap">
+    </script>
+  </body>
+</html>
