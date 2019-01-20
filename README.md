@@ -4,7 +4,9 @@ This program will dump all of your EasyPay MTA rides from <https://www.easypayme
 
 # Installation
 
-You will need [the go language](https://golang.org/dl/) installed. Then, on a terminal, run:
+You will need [the go language](https://golang.org/dl/) installed. You will also need [Google Chrome](https://www.google.com/chrome/) installed. (Sorry.)
+
+Then, on a terminal, run:
 
 ```
 go get github.com/gjtorikian/metrocarddump
