@@ -17,6 +17,36 @@
         margin: 0;
         padding: 0;
       }
+
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      @-webkit-keyframes pulse {
+        0% {
+          -webkit-box-shadow: 0 0 0 0 rgba(255,65,180, 0.4);
+        }
+        70% {
+          -webkit-box-shadow: 0 0 0 10px rgba(255,65,180, 0);
+        }
+        100% {
+          -webkit-box-shadow: 0 0 0 0 rgba(255,65,180, 0);
+        }
+      }
+      @keyframes pulse {
+        0% {
+          -moz-box-shadow: 0 0 0 0 rgba(255,65,180, 0.4);
+          box-shadow: 0 0 0 0 rgba(255,65,180, 0.4);
+        }
+        70% {
+          -moz-box-shadow: 0 0 0 10px rgba(255,65,180, 0);
+          box-shadow: 0 0 0 10px rgba(255,65,180, 0);
+        }
+        100% {
+          -moz-box-shadow: 0 0 0 0 rgba(255,65,180, 0);
+          box-shadow: 0 0 0 0 rgba(255,65,180, 0);
+        }
+      }
     </style>
   </head>
 
@@ -25,13 +55,13 @@
       <article class="pv2 fl w-100 ">
         <h1 class="f4 f1-ns fw6 mb2">MetroCardDump</h1>
         <p class="f5 f4-ns measure lh-copy mt0">
-          Citizen of New York! Got an EasyPay Metrocard? Bully for you! Now you can get a JSON dump of all the rides you've taken. <a href="https://github.com/gjtorikian/metrocarddump" class="black dim">Get it here</a>!
+          Citizen of New York! Got an EasyPay Metrocard? Bully for you! Now you can get a JSON dump of all the rides you've taken. <a href="https://github.com/gjtorikian/metrocarddump" class="black dim fw6">Get it here</a>!
         </p>
       </article>
       <article class="pv2 fl w-100 w-50-l pr0 pr2-l">
         <h2 class="f4 f3-ns fw6 mb2 ttu tracked">Why would I want to do that?</h2>
         <p class="f4 measure lh-copy mt0">
-            Um, the words <span class="courier red">data visualization</span> mean anything to you?!
+            Um, the words <span class="courier hot-pink pulse">data visualization</span> mean anything to you?!
         </p>
       </article>
     </section>
@@ -74,7 +104,6 @@
         });
       }
 
-      // Heatmap data: 500 Points
       function getPoints(ridesJSON) {
         return ridesJSON.map(r => new google.maps.LatLng(r.latitude, r.longitude));
       }
@@ -84,8 +113,10 @@
         xobj.overrideMimeType("application/json");
         xobj.open("GET", "rides.json", true);
         xobj.onreadystatechange = function () {
-          if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+          if (xobj.status != "200") {
+            console.error(`Could not load JSON file. Status ${xobj.status}, state: ${xobj.readyState}`)
+          }
+          else if (xobj.readyState == 4 ) {
             callback(xobj.responseText);
           }
         };
