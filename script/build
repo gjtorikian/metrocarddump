@@ -1,0 +1,7 @@
+#!/bin/bash
+
+gox \
+  -output="build/metrocarddump_{{.OS}}_{{.Arch}}" \
+  -os="darwin linux windows" \
+  ./...
+echo "Built $(go run metrocarddump.go --version)"

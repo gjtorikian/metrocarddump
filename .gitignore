@@ -1,0 +1,5 @@
+.gopack
+build/
+tmp
+log
+.env
