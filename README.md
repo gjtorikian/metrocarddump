@@ -34,3 +34,13 @@ The `metrocarddump` bin takes arguments!
 | `--debug`, `-d` | If `true`, prints debug statements along the way. | `false` |
 | `skip`, `-s` | If `true`, skips stations for which a lat/long could not be found. | `false` |
 | `trim`, `-t` | If `true`, removes all information except for lat/long (for privacy). | `false` |
+
+## Format
+
+The JSON returns with the following keys:
+
+* `dateTime`: The date and time of the ride.
+* `location`: The unintuitive format the MTA uses to define a station.
+* `latitude`: The latitude of the station. This can be 0 if the MTA has not documented this.
+* `longitude`: The longitude of the station. This can be 0 if the MTA has not documented this.
+* `transport`: Whether this was a `Subway` or a `Bus` swipe.
