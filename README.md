@@ -16,8 +16,11 @@ platform](https://github.com/gjtorikian/metrocarddump/releases), optionally rena
 ## Usage
 
 1. Run `metrocarddump`.
-2. Google Chrome will pop open. Enter your account credenitals into the browser.
-3. Click on ** **.
+2. Google Chrome will pop open. Enter your account credenitals into the browser:
+
+    ![Entering credentials](https://user-images.githubusercontent.com/64050/51440923-08d18180-1c9a-11e9-9f25-f6a534786d26.gif)
+
+3. Click on **Statement History**. Do this within ten seconds, or the script will timeout!
 4. Don't do anything.
 5. Let the program do its thing.
 6. When everything is done, Chrome will close, and you'll have a file called _rides.json_.
@@ -28,4 +31,6 @@ The `metrocarddump` bin takes arguments!
 
 | Option | Description | Default |
 | :----- | :---------- | :------ |
-| `debug` | If `true`, prints debug statements along the way. | `false` |
+| `--debug`, `-d` | If `true`, prints debug statements along the way. | `false` |
+| `skip`, `-s` | If `true`, skips stations for which a lat/long could not be found. | `false` |
+| `trim`, `-t` | If `true`, removes all information except for lat/long (for privacy). | `false` |
