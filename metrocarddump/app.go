@@ -1,13 +1,11 @@
 package metrocarddump
 
 import (
-	"bufio"
 	"context"
 	"encoding/csv"
 	"encoding/json"
 	"io/ioutil"
 	"log"
-	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -15,6 +13,7 @@ import (
 	"github.com/chromedp/cdproto/cdp"
 	"github.com/chromedp/chromedp"
 	"github.com/chromedp/chromedp/runner"
+	"github.com/gobuffalo/packr"
 
 	"fmt"
 
@@ -109,8 +108,12 @@ func writeResults(rides []Ride, skipMissing bool, trimData bool) {
 	var modifiedRides []Ride
 	var err error
 
-	csvFile, _ := os.Open("geocoded.csv")
-	reader := csv.NewReader(bufio.NewReader(csvFile))
+	box := packr.NewBox("./static")
+	csvFile, err := box.FindString("geocoded.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+	reader := csv.NewReader(strings.NewReader(csvFile))
 	lines, err := reader.ReadAll()
 	if err != nil {
 		log.Fatal(err)
@@ -153,7 +156,7 @@ func writeResults(rides []Ride, skipMissing bool, trimData bool) {
 		log.Fatal(err)
 	}
 
-	filename := "rides.json"
+	filename := fmt.Sprintf("%s_rides.json", time.Now().Format("20060102"))
 	err = ioutil.WriteFile(filename, ridesJson, 0644)
 	if err != nil {
 		log.Fatal(err)
@@ -181,9 +184,18 @@ func toFloat(s string) float32 {
 
 func navigate(ctxt context.Context, c *chromedp.CDP, debugMode bool, rides *[]Ride) chromedp.Tasks {
 	var dropdown []*cdp.Node
+
+	c.Run(ctxt, chromedp.Navigate(easypayURL))
+
+	fmt.Println("starting scrape timer...")
+
+	c.Run(ctxt, chromedp.Navigate(easypayURL))
+
+	c.Run(ctxt, chromedp.Sleep(10*time.Second)) // give folks time to enter password, etc
+
+	fmt.Println("scraping...")
+
 	return chromedp.Tasks{
-		chromedp.Navigate(easypayURL),
-		chromedp.Sleep(10 * time.Second), // give folks time to enter password, etc
 		chromedp.WaitVisible(`#HStatementPeriod`, chromedp.ByID),
 		chromedp.Nodes(`//select[@id="HStatementPeriod"]/option`, &dropdown),
 		chromedp.ActionFunc(func(context.Context, cdp.Executor) error {

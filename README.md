@@ -23,7 +23,9 @@ platform](https://github.com/gjtorikian/metrocarddump/releases), optionally rena
 3. Click on **Statement History**. Do this within ten seconds, or the script will timeout!
 4. Don't do anything.
 5. Let the program do its thing.
-6. When everything is done, Chrome will close, and you'll have a file called _rides.json_.
+6. When everything is done, Chrome will close, and you'll have a file called _YYYYMMDD_rides.json_.
+
+**Note:** Unfortunately, I could not find data for some newer MTA stations, such as those off of [the Second Avenue Subway](https://en.wikipedia.org/wiki/86th_Street_(Second_Avenue_Subway)). Any missing geo-coordinates will be reported at the end of the run.
 
 ## Configuration
 
