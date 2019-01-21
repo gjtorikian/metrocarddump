@@ -103,9 +103,9 @@
           ridesJSON = JSON.parse(response);
 
           map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 11,
+            zoom: 12,
             center: {lat: 40.7325819, lng: -73.928293},
-            mapTypeId: 'roadmap',
+            mapTypeId: 'hybrid',
             draggable: false,
             zoomControl: false,
             scrollwheel: false,
@@ -119,7 +119,8 @@
 
           heatmap = new google.maps.visualization.HeatmapLayer({
             data: getPoints(ridesJSON),
-            map: map
+            map: map,
+            radius: 45
           });
         });
       }
