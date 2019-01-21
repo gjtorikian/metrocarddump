@@ -40,7 +40,7 @@ func NewApp() *cli.App {
 	app := cli.NewApp()
 	app.Name = "metrocarddump"
 	app.Usage = "Dump all of your EasyPay MTA rides into a JSON file."
-	app.Version = "0.0.7"
+	app.Version = "0.0.8"
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
 			Name:  "debug, d",
