@@ -34,8 +34,8 @@ The `metrocarddump` bin takes arguments!
 | Option | Description | Default |
 | :----- | :---------- | :------ |
 | `--debug`, `-d` | If `true`, prints debug statements along the way. | `false` |
-| `skip`, `-s` | If `true`, skips stations for which a lat/long could not be found. | `false` |
-| `trim`, `-t` | If `true`, removes all information except for lat/long (for privacy). | `false` |
+| `--skip`, `-s` | If `true`, skips stations for which a lat/long could not be found. | `false` |
+| `--trim`, `-t` | If `true`, removes all information except for lat/long (for privacy). | `false` |
 
 ## Format
 
