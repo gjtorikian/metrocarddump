@@ -8,7 +8,7 @@ You will need [Google Chrome](https://www.google.com/chrome/) installed. (Sorry.
 
 * If you have [the Go language](https://golang.org/dl/) installed, you can install this via the CLI:
 
-      go get -u github.com/gjtorikian/metrocarddump/metrocarddump
+      go get -u github.com/gjtorikian/metrocarddump/...
 
 * If you don't have Go installed, you can download a [prebuilt binary for your
 platform](https://github.com/gjtorikian/metrocarddump/releases), optionally renaming it to "metrocarddump" for convenience.
